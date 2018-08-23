@@ -5,9 +5,13 @@ import CreateHome from './CreateHome';
 class App extends Component {
   render() {
     return (
-      <div>
-        <CreateHome />
-        <CreatePersonal />
+      <div className={'container'}>
+        <header>
+          <CreateHome />
+        </header>
+        <div className="personal">
+          <CreatePersonal />
+        </div>
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GoogleLogin from 'react-google-login';
+import WebcamCapture from './Webcam';
 import Login from './Google';
 
 import './App.css';
@@ -16,108 +16,111 @@ export default class CreatePersonal extends Component {
     calendar: '',
     newsInput: '',
     newsPref: [],
-    accs: []
+    accs: [],
+    home: {}
   };
+
+  // componentDidMount = async () => {
+  //   const all = JSON.parse(localStorage);
+
+  //   if (Object.values(home).length > 0) {
+  //     this.setState({ home });
+  //     this.setState({ created: true });
+  //   }
+  // };
+
   render() {
     return (
-      <div className="App">
-        <h1>Create your account</h1>
-        <br />
-        {[...this.state.accs].map(function(name) {
-          return (
-            <p>
-              {name.firstname} {name.lastname}
-            </p>
-          );
-        })}
-        <p>Firstname: </p>
-        <input
-          type="text"
-          onChange={this.handleFirstnameChange}
-          value={this.state.firstname}
-        />
+      <div className="row">
+        <div className="column">
+          <h1>Create your account</h1>
 
-        <br />
-        <p>Lastname: </p>
-        <input
-          type="text"
-          onChange={this.handleLastnameChange}
-          value={this.state.lastname}
-        />
+          <p>Firstname: </p>
+          <input
+            type="text"
+            onChange={this.handleFirstnameChange}
+            value={this.state.firstname}
+          />
 
-        <br />
-        <p>Screenname: </p>
-        <input
-          type="text"
-          onChange={this.handleScreennameChange}
-          value={this.state.screenname}
-        />
+          <p>Lastname: </p>
+          <input
+            type="text"
+            onChange={this.handleLastnameChange}
+            value={this.state.lastname}
+          />
 
-        <br />
-        <h3>Work/School address </h3>
-        <p>Street No: </p>
-        <input
-          type="text"
-          onChange={this.handleWorkStreetNoChange}
-          value={this.state.workStreetNo}
-        />
+          <p>Screenname: </p>
+          <input
+            type="text"
+            onChange={this.handleScreennameChange}
+            value={this.state.screenname}
+          />
 
-        <br />
-        <p>Street: </p>
-        <input
-          type="text"
-          onChange={this.handleWorkStreetChange}
-          value={this.state.workStreet}
-        />
-        <br />
-        <br />
-        <p>City: : </p>
-        <input
-          type="text"
-          onChange={this.handleWorkCityChange}
-          value={this.state.workCity}
-        />
+          <h3>Work/School address </h3>
+          <p>Street No: </p>
+          <input
+            type="text"
+            onChange={this.handleWorkStreetNoChange}
+            value={this.state.workStreetNo}
+          />
 
-        <br />
-        <p>Postcode: </p>
-        <input
-          type="text"
-          onChange={this.handleWorkPostcodeChange}
-          value={this.state.workPostcode}
-        />
+          <p>Street: </p>
+          <input
+            type="text"
+            onChange={this.handleWorkStreetChange}
+            value={this.state.workStreet}
+          />
 
-        <br />
+          <p>City: : </p>
+          <input
+            type="text"
+            onChange={this.handleWorkCityChange}
+            value={this.state.workCity}
+          />
 
-        <p>Add subjects to your news feed: </p>
-        {this.state.newsPref.map(function(n) {
-          return <p>{n}</p>;
-        })}
-        <input
-          type="text"
-          onChange={this.handleNewsInput}
-          onKeyUp={this.handleSubmitNews}
-          value={this.state.newsInput}
-        />
+          <p>Postcode: </p>
+          <input
+            type="text"
+            onChange={this.handleWorkPostcodeChange}
+            value={this.state.workPostcode}
+          />
 
-        <br />
-        <br />
-        <p>Login with Google to authorise calendar access</p>
-        <Login />
-        <br />
-        <br />
-        <p>Google calendar id</p>
-        <input
-          type="text"
-          onChange={this.handleCalendar}
-          value={this.state.calendar}
-        />
-        <br />
-        <br />
-        <button onClick={this.handleButtonSubmit}>Submit</button>
-        <button onClick={this.handleButtonPress}>press</button>
+          <p>Add subjects to your news feed: </p>
+          {this.state.newsPref.map(function(n) {
+            return <p>{n}</p>;
+          })}
+          <input
+            type="text"
+            onChange={this.handleNewsInput}
+            onKeyUp={this.handleSubmitNews}
+            value={this.state.newsInput}
+          />
 
-        <br />
-        <br />
+          <p>Login with Google to authorise calendar access</p>
+          <Login />
+
+          <p>Google calendar id</p>
+          <input
+            type="text"
+            onChange={this.handleCalendar}
+            value={this.state.calendar}
+          />
+
+          <button onClick={this.handleButtonSubmit}>Submit</button>
+          <button onClick={this.handleButtonPress}>press</button>
+
+          <WebcamCapture name={this.state.firstname} />
+        </div>
+        <div className="column">
+          <h3>Created Accounts</h3>
+          {[...this.state.accs].map(function(name) {
+            return (
+              <p>
+                {name.firstname} {name.lastname}
+              </p>
+            );
+          })}
+        </div>
       </div>
     );
   }
@@ -157,6 +160,7 @@ export default class CreatePersonal extends Component {
   };
   handleButtonSubmit = event => {
     console.log('hit function');
+
     localStorage.setItem(this.state.firstname, JSON.stringify(this.state));
     this.setState({
       accs: [
@@ -179,8 +183,6 @@ export default class CreatePersonal extends Component {
   };
 
   handleButtonPress = event => {
-    console.log('hit button func');
-
     console.log(localStorage);
   };
 }
